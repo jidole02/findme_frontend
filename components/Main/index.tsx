@@ -29,14 +29,20 @@ const Main = () => {
     });
   }
 
-  function drawMap() {
+  function draw() {
     window.kakao.maps.load(() => {
       const mapContainer = document.getElementById("map");
       const mapOption = {
         center: new window.kakao.maps.LatLng(x, y), // 지도의 중심좌표
         level: 3, // 지도의 확대 레벨
       };
-      new window.kakao.maps.Map(mapContainer, mapOption);
+
+      const map = new window.kakao.maps.Map(mapContainer, mapOption);
+
+      let marker = new window.kakao.maps.Marker({
+        map: map,
+        position: new window.kakao.maps.LatLng(x, y),
+      });
     });
   }
 
@@ -52,8 +58,7 @@ const Main = () => {
       document.head.appendChild(mapScript);
 
       const onLoadKakaoMap = () => {
-        drawMap();
-        drawMyLocation();
+        draw();
       };
       mapScript.addEventListener("load", onLoadKakaoMap);
     }
