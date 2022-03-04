@@ -1,26 +1,63 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+interface location {
+  x: number;
+  y: number;
+}
 
 const Main = () => {
-  useEffect(() => {
-    const mapScript = document.createElement("script");
+  const [coordination, setCoordination] = useState<location>({ x: 0, y: 0 });
+  const { x, y } = coordination;
 
-    mapScript.async = true;
-    mapScript.src = `http://dapi.kakao.com/v2/maps/sdk.js?appkey=23ff1647b8abe7a607e42f5bbda3e52e&autoload=false`;
-
-    document.head.appendChild(mapScript);
-
-    const onLoadKakaoMap = () => {
-      window.kakao.maps.load(() => {
-        const mapContainer = document.getElementById("map");
-        const mapOption = {
-          center: new window.kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-          level: 3, // 지도의 확대 레벨
-        };
-        new window.kakao.maps.Map(mapContainer, mapOption);
+  function getMyLocation() {
+    navigator.geolocation.watchPosition(function (p) {
+      setCoordination({
+        x: p.coords.latitude,
+        y: p.coords.longitude,
       });
-    };
-    mapScript.addEventListener("load", onLoadKakaoMap);
-  }, []);
+    });
+  }
+
+  function drawMyLocation() {
+    window.kakao.maps.load(() => {
+      var markerPosition = new window.kakao.maps.LatLng(x, y);
+
+      // 마커를 생성합니다
+      var marker = new window.kakao.maps.Marker({
+        position: markerPosition,
+      });
+    });
+  }
+
+  function drawMap() {
+    window.kakao.maps.load(() => {
+      const mapContainer = document.getElementById("map");
+      const mapOption = {
+        center: new window.kakao.maps.LatLng(x, y), // 지도의 중심좌표
+        level: 3, // 지도의 확대 레벨
+      };
+      new window.kakao.maps.Map(mapContainer, mapOption);
+    });
+  }
+
+  useEffect(getMyLocation, []);
+
+  useEffect(() => {
+    if (x !== 0) {
+      const mapScript = document.createElement("script");
+
+      mapScript.async = true;
+      mapScript.src = `http://dapi.kakao.com/v2/maps/sdk.js?appkey=23ff1647b8abe7a607e42f5bbda3e52e&autoload=false`;
+
+      document.head.appendChild(mapScript);
+
+      const onLoadKakaoMap = () => {
+        drawMap();
+        drawMyLocation();
+      };
+      mapScript.addEventListener("load", onLoadKakaoMap);
+    }
+  }, [coordination.x]);
 
   return <div id="map" style={{ height: "100vh", width: "100vw" }} />;
 };
