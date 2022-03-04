@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Header from "../Header";
 
 interface location {
   x: number;
@@ -7,6 +8,7 @@ interface location {
 
 const Main = () => {
   const [coordination, setCoordination] = useState<location>({ x: 0, y: 0 });
+  const [map, setMap] = useState();
   const { x, y } = coordination;
 
   function getMyLocation() {
@@ -26,6 +28,7 @@ const Main = () => {
         level: 3,
       };
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
+      setMap(map);
 
       const imageSrc = "/maker.png",
         imageSize = new window.kakao.maps.Size(120, 120),
@@ -61,7 +64,12 @@ const Main = () => {
     }
   }, [coordination.x]);
 
-  return <div id="map" style={{ height: "100vh", width: "100vw" }} />;
+  return (
+    <>
+      <Header map={map} x={x} y={y} />
+      <div id="map" style={{ height: "100vh", width: "100vw" }} />
+    </>
+  );
 };
 
 export default Main;
