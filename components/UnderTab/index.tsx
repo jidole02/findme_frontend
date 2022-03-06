@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
+import PeopleInformation from "../PeopleInformation";
 
 const UnderTab = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,6 +12,7 @@ const UnderTab = () => {
       <h1>
         주변 실종자 <strong>4명</strong>
       </h1>
+      <PeopleInformation />
     </Wrapper>
   );
 };
@@ -31,6 +33,7 @@ const Wrapper = styled.div`
   & h1 {
     font-size: 18px;
     font-weight: bold;
+    margin-bottom: 30px;
     & strong {
       color: var(--main-color);
     }
