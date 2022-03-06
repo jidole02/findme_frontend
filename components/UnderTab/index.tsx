@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
+import { useState } from "react";
 
 const UnderTab = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <Wrapper>
-      <ButtonContainer>
+    <Wrapper style={isOpen ? { height: "400px" } : {}}>
+      <ButtonContainer onClick={() => setIsOpen(!isOpen)}>
         <button />
       </ButtonContainer>
       <h1>
@@ -25,10 +27,10 @@ const Wrapper = styled.div`
   bottom: 0;
   padding: 0px 30px;
   box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.1);
+  transition: 0.5s;
   & h1 {
     font-size: 18px;
     font-weight: bold;
-    margin-top: 25px;
     & strong {
       color: var(--main-color);
     }
@@ -36,7 +38,9 @@ const Wrapper = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  margin-top: 10px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  cursor: pointer;
   width: 100%;
   display: flex;
   justify-content: center;
