@@ -20,11 +20,12 @@ const Wrapper = styled.div`
   position: relative;
   padding-bottom: 15px;
   border-bottom: 1px solid #f1f1f1;
+  cursor: pointer;
   & img {
     width: 50px;
     height: 50px;
     border-radius: 20px;
-    border: 1px solid #aaaaaa;
+    border: 1px solid #d1d1d1;
   }
   & .infor {
     margin-left: 10px;
