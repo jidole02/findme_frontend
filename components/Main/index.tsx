@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "../Header";
 import UnderTab from "../UnderTab";
+import axios from "axios";
 
 interface location {
   x: number;
@@ -11,6 +12,23 @@ const Main = () => {
   const [coordination, setCoordination] = useState<location>({ x: 0, y: 0 });
   const [map, setMap] = useState();
   const { x, y } = coordination;
+
+  useEffect(() => {
+    if (x !== 0) {
+      getAllMissingPerson();
+    }
+  }, [x, y]);
+
+  async function getAllMissingPerson() {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_URL}/missing/near`,
+      {
+        x,
+        y,
+      }
+    );
+    console.log(res.data);
+  }
 
   function getMyLocation() {
     navigator.geolocation.watchPosition(function (p) {
