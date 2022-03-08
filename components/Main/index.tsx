@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "../Header";
 import UnderTab from "../UnderTab";
 import axios from "axios";
+import { person } from "./interface";
 
 interface location {
   x: number;
@@ -11,13 +12,8 @@ interface location {
 const Main = () => {
   const [coordination, setCoordination] = useState<location>({ x: 0, y: 0 });
   const [map, setMap] = useState();
+  const [nearData, setNearData] = useState<person[]>([]);
   const { x, y } = coordination;
-
-  useEffect(() => {
-    if (x !== 0) {
-      getAllMissingPerson();
-    }
-  }, [x, y]);
 
   async function getAllMissingPerson() {
     const res = await axios.post(
@@ -27,7 +23,7 @@ const Main = () => {
         y,
       }
     );
-    console.log(res.data);
+    setNearData(res.data);
   }
 
   function getMyLocation() {
@@ -41,6 +37,7 @@ const Main = () => {
 
   function draw() {
     window.kakao.maps.load(() => {
+      // 지도 생성
       const mapContainer = document.getElementById("map");
       const mapOption = {
         center: new window.kakao.maps.LatLng(x, y),
@@ -48,7 +45,7 @@ const Main = () => {
       };
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
       setMap(map);
-
+      // 현위치 마커 이미지 변경
       const imageSrc = "/maker.png",
         imageSize = new window.kakao.maps.Size(120, 120),
         imageOption = { offset: new window.kakao.maps.Point(27, 69) };
@@ -64,13 +61,25 @@ const Main = () => {
         position: new window.kakao.maps.LatLng(x, y),
       });
       marker.setImage(markerImage);
+      // 가까운 실종자 띄우기
+      for (var i = 0; i < nearData.length; i++) {
+        const nMarker = new window.kakao.maps.Marker({
+          map: map,
+          position: new window.kakao.maps.LatLng(nearData[i].x, nearData[i].y),
+        });
+      }
     });
   }
 
   useEffect(getMyLocation, []);
 
   useEffect(() => {
+    getAllMissingPerson();
+  }, [x]);
+
+  useEffect(() => {
     if (x !== 0) {
+      console.log(nearData);
       const mapScript = document.createElement("script");
       mapScript.async = true;
       mapScript.src = `http://dapi.kakao.com/v2/maps/sdk.js?appkey=23ff1647b8abe7a607e42f5bbda3e52e&autoload=false`;
@@ -81,7 +90,7 @@ const Main = () => {
       };
       mapScript.addEventListener("load", onLoadKakaoMap);
     }
-  }, [coordination.x]);
+  }, [coordination.x, nearData]);
 
   return (
     <>
