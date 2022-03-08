@@ -41,33 +41,37 @@ const Main = () => {
       const mapContainer = document.getElementById("map");
       const mapOption = {
         center: new window.kakao.maps.LatLng(x, y),
-        level: 5,
+        level: 8,
       };
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
       setMap(map);
-      // 현위치 마커 이미지 변경
-      const imageSrc = "/maker.png",
-        imageSize = new window.kakao.maps.Size(120, 120),
-        imageOption = { offset: new window.kakao.maps.Point(27, 69) };
-
-      const markerImage = new window.kakao.maps.MarkerImage(
-        imageSrc,
-        imageSize,
-        imageOption
-      );
-
-      const marker = new window.kakao.maps.Marker({
-        map: map,
-        position: new window.kakao.maps.LatLng(x, y),
-      });
-      marker.setImage(markerImage);
       // 가까운 실종자 띄우기
-      for (var i = 0; i < nearData.length; i++) {
-        const nMarker = new window.kakao.maps.Marker({
-          map: map,
-          position: new window.kakao.maps.LatLng(nearData[i].x, nearData[i].y),
-        });
+      if (nearData.length !== 0) {
+        for (let i = 0; i < nearData.length; i++) {
+          const content = `<img src="ddyzd${
+            i + 1
+          }.png" style="width:50px; height:50px; border-radius:50%; z-index:-1" />`;
+          const position = new window.kakao.maps.LatLng(
+            nearData[i].x,
+            nearData[i].y
+          );
+          const customOverlay = new window.kakao.maps.CustomOverlay({
+            position: position,
+            content: content,
+          });
+
+          // 커스텀 오버레이를 지도에 표시합니다
+          customOverlay.setMap(map);
+        }
       }
+      // 현위치 마커 이미지 변경
+      const content = `<img src="maker.png" style="width:150px; height:150px; border-radius:50%;" />`;
+      const position = new window.kakao.maps.LatLng(x, y);
+      const customOverlay = new window.kakao.maps.CustomOverlay({
+        position: position,
+        content: content,
+      });
+      customOverlay.setMap(map);
     });
   }
 
@@ -79,7 +83,6 @@ const Main = () => {
 
   useEffect(() => {
     if (x !== 0) {
-      console.log(nearData);
       const mapScript = document.createElement("script");
       mapScript.async = true;
       mapScript.src = `http://dapi.kakao.com/v2/maps/sdk.js?appkey=23ff1647b8abe7a607e42f5bbda3e52e&autoload=false`;
