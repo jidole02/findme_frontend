@@ -36,3 +36,12 @@ p {
   margin: 0;
   padding: 0;
 }
+
+#marker {
+  width: 55px;
+  height: 55px;
+  border-radius: 30%;
+  transition: 0.5s;
+  border: 5px solid #7d78ff;
+  box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.2);
+}
