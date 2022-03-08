@@ -3,9 +3,10 @@ import { person } from "./../../interfaces/person";
 
 interface props {
   person: person;
+  distance: any;
 }
 
-export default function PeopleInformation({ person }: props) {
+export default function PeopleInformation({ person, distance }: props) {
   return (
     <Wrapper>
       <img src="http://image.kmib.co.kr/online_image/2020/0122/202001220402_11170924119205_1.jpg" />
@@ -13,7 +14,7 @@ export default function PeopleInformation({ person }: props) {
         <h1>{person.name}</h1>
         <span>{person.adress}</span>
       </div>
-      <div className="distance">400m</div>
+      <div className="distance">{distance.toFixed(2)}km</div>
     </Wrapper>
   );
 }
@@ -26,6 +27,7 @@ const Wrapper = styled.div`
   padding-bottom: 15px;
   border-bottom: 1px solid #f1f1f1;
   cursor: pointer;
+  margin-top: 15px;
   & img {
     width: 50px;
     height: 50px;

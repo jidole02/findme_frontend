@@ -96,7 +96,7 @@ const Main = () => {
   return (
     <>
       <Header map={map} x={x} y={y} />
-      <UnderTab data={nearData} />
+      <UnderTab data={nearData} myX={x} myY={y} />
       <div id="map" style={{ height: "100vh", width: "100vw" }} />
     </>
   );
