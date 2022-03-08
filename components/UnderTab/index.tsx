@@ -1,8 +1,13 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 import PeopleInformation from "../PeopleInformation";
+import { person } from "./../../interfaces/person";
 
-const UnderTab = () => {
+interface props {
+  data: person[];
+}
+
+const UnderTab = ({ data }: props) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Wrapper style={isOpen ? { height: "400px" } : {}}>
@@ -10,9 +15,11 @@ const UnderTab = () => {
         <button />
       </ButtonContainer>
       <h1>
-        주변 실종자 <strong>4명</strong>
+        주변 실종자 <strong>{data.length}명</strong>
       </h1>
-      <PeopleInformation />
+      {data.map((obj, index) => (
+        <PeopleInformation key={index} person={obj} />
+      ))}
     </Wrapper>
   );
 };

@@ -1,12 +1,17 @@
 import styled from "@emotion/styled";
+import { person } from "./../../interfaces/person";
 
-export default function PeopleInformation() {
+interface props {
+  person: person;
+}
+
+export default function PeopleInformation({ person }: props) {
   return (
     <Wrapper>
       <img src="http://image.kmib.co.kr/online_image/2020/0122/202001220402_11170924119205_1.jpg" />
       <div className="infor">
-        <h1>김팔복</h1>
-        <span>서울 강남구</span>
+        <h1>{person.name}</h1>
+        <span>{person.adress}</span>
       </div>
       <div className="distance">400m</div>
     </Wrapper>

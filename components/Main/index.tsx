@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "../Header";
 import UnderTab from "../UnderTab";
 import axios from "axios";
-import { person } from "./interface";
+import { person } from "../../interfaces/person";
 
 interface location {
   x: number;
@@ -96,7 +96,7 @@ const Main = () => {
   return (
     <>
       <Header map={map} x={x} y={y} />
-      <UnderTab />
+      <UnderTab data={nearData} />
       <div id="map" style={{ height: "100vh", width: "100vw" }} />
     </>
   );
