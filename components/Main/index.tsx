@@ -3,6 +3,8 @@ import Header from "../Header";
 import UnderTab from "../UnderTab";
 import axios from "axios";
 import { person } from "../../interfaces/person";
+import { useDispatch } from "react-redux";
+import { setId } from "./../../redux/person";
 
 interface location {
   x: number;
@@ -14,6 +16,7 @@ const Main = () => {
   const [map, setMap] = useState();
   const [nearData, setNearData] = useState<person[]>([]);
   const { x, y } = coordination;
+  const dispatch = useDispatch();
 
   async function getAllMissingPerson() {
     const res = await axios.post(
@@ -39,7 +42,7 @@ const Main = () => {
     window.addEventListener("click", (event) => {
       const target: any = event.target;
       if (target.id === "marker") {
-        console.log(target.className);
+        dispatch(setId(target.className));
       }
     });
   }

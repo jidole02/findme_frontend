@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { createStore } from "redux";
 import rootReducer from "./../redux/index";
 import { Provider } from "react-redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 declare global {
   interface Window {
@@ -10,7 +11,7 @@ declare global {
   }
 }
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, composeWithDevTools());
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
