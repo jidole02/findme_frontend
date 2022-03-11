@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import { person } from "./../../interfaces/person";
+import { useDispatch } from "react-redux";
+import { setId } from "./../../redux/person";
 
 interface props {
   person: person;
@@ -7,8 +9,13 @@ interface props {
 }
 
 export default function PeopleInformation({ person, distance }: props) {
+  const dispatch = useDispatch();
+
+  function showDetail() {
+    dispatch(setId(person._id));
+  }
   return (
-    <Wrapper>
+    <Wrapper onClick={showDetail}>
       <img src="http://image.kmib.co.kr/online_image/2020/0122/202001220402_11170924119205_1.jpg" />
       <div className="infor">
         <h1>{person.name}</h1>

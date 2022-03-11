@@ -4,5 +4,5 @@ export interface person {
   name?: string;
   age?: number;
   adress?: number;
-  _id?: string;
+  _id: string;
 }
