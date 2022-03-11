@@ -35,6 +35,15 @@ const Main = () => {
     });
   }
 
+  function showDetail() {
+    window.addEventListener("click", (event) => {
+      const target: any = event.target;
+      if (target.id === "marker") {
+        console.log(target.className);
+      }
+    });
+  }
+
   function draw() {
     window.kakao.maps.load(() => {
       // 지도 생성
@@ -48,7 +57,9 @@ const Main = () => {
       // 가까운 실종자 띄우기
       if (nearData.length !== 0) {
         for (let i = 0; i < nearData.length; i++) {
-          const content = `<img src="ddyzd${i + 1}.png" id="marker" />`;
+          const content = `<img src="ddyzd${i + 1}.png" id="marker" class="${
+            nearData[i]._id
+          }" />`;
           const position = new window.kakao.maps.LatLng(
             nearData[i].x,
             nearData[i].y
@@ -73,7 +84,10 @@ const Main = () => {
     });
   }
 
-  useEffect(getMyLocation, []);
+  useEffect(() => {
+    getMyLocation();
+    showDetail();
+  }, []);
 
   useEffect(() => {
     getAllMissingPerson();
