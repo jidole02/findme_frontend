@@ -17,7 +17,11 @@ const PersonDetail = () => {
       </div>
       <p>빨간 잠옷을 입고 집 앞 슈퍼를 가다가 사라짐</p>
       <s.ConfirmButton>발견 완료</s.ConfirmButton>
+<<<<<<< HEAD
       <CloseButton />
+=======
+      <s.PersonalButton>취소</s.PersonalButton>
+>>>>>>> main
     </Wrapper>
   );
 };
