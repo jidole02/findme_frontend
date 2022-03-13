@@ -1,6 +1,6 @@
 const SET_ID = "person/SET_ID";
 
-export const setId = (id: number | string) => ({
+export const setId = (id: number | string | null) => ({
   type: SET_ID,
   id: id,
 });
