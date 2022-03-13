@@ -1,21 +1,28 @@
 const SET_ID = "person/SET_ID";
 
-export const setId = (id: number | string | null) => ({
+type PersonState = {
+  id: number | string | null;
+};
+
+export const setId = (id: string | null | number) => ({
   type: SET_ID,
   id: id,
 });
 
-const initState = {
+const initState: PersonState = {
   id: null,
 };
 
 type Action = ReturnType<typeof setId>;
 
-export default function PersonReducer(state = initState, action: Action) {
+export default function PersonReducer(
+  state: PersonState = initState,
+  action: Action
+) {
   switch (action.type) {
     case SET_ID:
       return {
-        id: state.id,
+        id: action.id,
       };
     default:
       return state;

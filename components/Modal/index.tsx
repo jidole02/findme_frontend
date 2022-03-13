@@ -1,11 +1,18 @@
 import styled from "@emotion/styled";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux";
 import PersonDetail from "./PersonDetail";
 
 const Modal = () => {
+  const person_id = useSelector((state: RootState) => state.PersonReducer.id);
   return (
-    <Wrapper>
-      <PersonDetail />
-    </Wrapper>
+    <>
+      {person_id && (
+        <Wrapper>
+          <PersonDetail />
+        </Wrapper>
+      )}
+    </>
   );
 };
 

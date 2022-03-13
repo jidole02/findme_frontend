@@ -47,6 +47,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: 30px;
+  color: black;
   & h1 {
     font-size: 18px;
     font-weight: bold;
