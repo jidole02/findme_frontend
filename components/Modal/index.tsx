@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
+import AddPerson from "./addPerson";
 import AlertPerson from "./alertPerson";
 import PersonDetail from "./PersonDetail";
 
@@ -16,6 +17,8 @@ const Modal = () => {
             <PersonDetail />
           ) : modal_type === "alert" ? (
             <AlertPerson />
+          ) : modal_type === "addPerson" ? (
+            <AddPerson />
           ) : (
             ""
           )}

@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import Add from "../../assets/Add";
 import List from "../../assets/List";
 import Location from "./../../assets/Location";
+import { useDispatch } from "react-redux";
+import { setModal } from "./../../redux/modal";
 
 interface props {
   map: any;
@@ -10,9 +12,15 @@ interface props {
 }
 
 const Header = ({ map, x, y }: props) => {
+  const dispatch = useDispatch();
+
   function moveMyLocation() {
     var moveLatLon = new window.kakao.maps.LatLng(x, y);
     map.panTo(moveLatLon);
+  }
+
+  function addPerson() {
+    dispatch(setModal("addPerson"));
   }
   return (
     <Wrapper>
@@ -23,7 +31,7 @@ const Header = ({ map, x, y }: props) => {
         <button className="menu" onClick={moveMyLocation}>
           <Location />
         </button>
-        <button className="menu">
+        <button className="menu" onClick={addPerson}>
           <Add />
         </button>
       </CircleContainer>

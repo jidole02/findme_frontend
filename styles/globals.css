@@ -19,7 +19,8 @@ body {
 }
 
 button,
-textarea {
+textarea,
+input {
   cursor: pointer;
   border: none;
   background: none;
