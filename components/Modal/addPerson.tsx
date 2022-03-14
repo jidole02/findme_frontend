@@ -2,7 +2,8 @@ import styled from "@emotion/styled";
 import CloseButton from "./closeButton";
 import * as s from "./styles";
 import { getFileData } from "./../../utils/getFileData";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
+import axios from "axios";
 
 const AddPerson = () => {
   const [fileName, setFileName] = useState("");
@@ -12,13 +13,21 @@ const AddPerson = () => {
     age: 0,
     description: "",
   });
+  const [imageUrl, setImageUrl] = useState("");
 
   function getFile(event) {
     getFileData(event).then((res) => {
       setFileName(res.file.name);
+      const fd = new FormData();
+      fd.append("file", res.file);
+      axios
+        .post(`${process.env.NEXT_PUBLIC_URL}/image/upload`, fd, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then((res) => {
+          setImageUrl(`${process.env.NEXT_PUBLIC_URL}${res.data.url}`);
+        });
     });
-    const gecoder = new window.kakao.maps.services.Geocoder();
-    console.log(gecoder);
   }
 
   function handleInput(
@@ -27,6 +36,18 @@ const AddPerson = () => {
     setData({
       ...data,
       [event.currentTarget.name]: event.currentTarget.value,
+    });
+  }
+
+  function subData() {
+    const geocoder = new window.kakao.maps.services.Geocoder();
+    geocoder.addressSearch(data.adress, function (result, status) {
+      // 정상적으로 검색이 완료됐으면
+      if (status === window.kakao.maps.services.Status.OK) {
+        console.log(data);
+        console.log(result[0].x, result[0].y);
+        console.log(imageUrl);
+      }
     });
   }
   return (
@@ -66,7 +87,7 @@ const AddPerson = () => {
           <span>{fileName ? fileName : "파일이 없습니다."}</span>
         </div>
       </label>
-      <s.ConfirmButton>작성 완료</s.ConfirmButton>
+      <s.ConfirmButton onClick={subData}>작성 완료</s.ConfirmButton>
       <CloseButton />
     </Wrapper>
   );
