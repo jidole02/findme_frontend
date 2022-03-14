@@ -12,6 +12,19 @@ export const Container = styled.div`
     font-weight: bold;
     color: white;
   }
+  & textarea {
+    width: 100%;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 16px;
+    color: White;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    &::placeholder {
+      color: #a5a5a5;
+    }
+  }
 `;
 
 export const ConfirmButton = styled.button`

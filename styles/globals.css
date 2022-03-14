@@ -18,7 +18,8 @@ body {
   font-weight: 500;
 }
 
-button {
+button,
+textarea {
   cursor: pointer;
   border: none;
   background: none;

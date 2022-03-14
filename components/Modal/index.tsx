@@ -1,15 +1,24 @@
 import styled from "@emotion/styled";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
+import AddPerson from "./addPerson";
 import PersonDetail from "./PersonDetail";
 
 const Modal = () => {
-  const person_id = useSelector((state: RootState) => state.PersonReducer.id);
+  const modal_type = useSelector(
+    (state: RootState) => state.ModalReducer.modalType
+  );
   return (
     <>
-      {person_id && (
+      {modal_type && (
         <Wrapper>
-          <PersonDetail />
+          {modal_type === "personDetail" ? (
+            <PersonDetail />
+          ) : modal_type === "addPerson" ? (
+            <AddPerson />
+          ) : (
+            ""
+          )}
         </Wrapper>
       )}
     </>

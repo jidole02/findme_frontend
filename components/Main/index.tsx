@@ -5,6 +5,7 @@ import axios from "axios";
 import { person } from "../../interfaces/person";
 import { useDispatch } from "react-redux";
 import { setId } from "./../../redux/person";
+import { setModal } from "./../../redux/modal";
 
 interface location {
   x: number;
@@ -43,6 +44,7 @@ const Main = () => {
       const target: any = event.target;
       if (target.id === "marker") {
         dispatch(setId(target.className));
+        dispatch(setModal("personDetail"));
       }
     });
   }
