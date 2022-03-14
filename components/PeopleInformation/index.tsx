@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { person } from "./../../interfaces/person";
 import { useDispatch } from "react-redux";
 import { setId } from "./../../redux/person";
+import { setModal } from "./../../redux/modal";
 
 interface props {
   person: person;
@@ -13,6 +14,7 @@ export default function PeopleInformation({ person, distance }: props) {
 
   function showDetail() {
     dispatch(setId(person._id));
+    dispatch(setModal("personDetail"));
   }
   return (
     <Wrapper onClick={showDetail}>

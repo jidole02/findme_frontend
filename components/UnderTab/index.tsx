@@ -20,13 +20,15 @@ const UnderTab = ({ data, myX, myY }: props) => {
       <h1>
         주변 실종자 <strong>{data.length}명</strong>
       </h1>
-      {data.map((obj, index) => (
-        <PeopleInformation
-          key={index}
-          person={obj}
-          distance={getDistanceFromLatLonInKm(myX, myY, obj.x, obj.y)}
-        />
-      ))}
+      <ListWrapper>
+        {data.map((obj, index) => (
+          <PeopleInformation
+            key={index}
+            person={obj}
+            distance={getDistanceFromLatLonInKm(myX, myY, obj.x, obj.y)}
+          />
+        ))}
+      </ListWrapper>
     </Wrapper>
   );
 };
@@ -56,6 +58,10 @@ const Wrapper = styled.div`
       color: var(--main-color);
     }
   }
+`;
+
+const ListWrapper = styled.div`
+  overflow-y: scroll;
 `;
 
 const ButtonContainer = styled.div`
