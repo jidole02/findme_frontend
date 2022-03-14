@@ -62,9 +62,7 @@ const Main = () => {
       // 가까운 실종자 띄우기
       if (nearData.length !== 0) {
         for (let i = 0; i < nearData.length; i++) {
-          const content = `<img src="ddyzd${i + 1}.png" id="marker" class="${
-            nearData[i]._id
-          }" />`;
+          const content = `<img src="${nearData[i].image}" id="marker" class="${nearData[i]._id}" />`;
           const position = new window.kakao.maps.LatLng(
             nearData[i].x,
             nearData[i].y

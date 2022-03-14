@@ -4,6 +4,8 @@ import * as s from "./styles";
 import { getFileData } from "./../../utils/getFileData";
 import { FormEvent, useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setModal } from "./../../redux/modal";
 
 const AddPerson = () => {
   const [fileName, setFileName] = useState("");
@@ -14,6 +16,7 @@ const AddPerson = () => {
     description: "",
   });
   const [imageUrl, setImageUrl] = useState("");
+  const dispatch = useDispatch();
 
   function getFile(event) {
     getFileData(event).then((res) => {
@@ -42,11 +45,20 @@ const AddPerson = () => {
   function subData() {
     const geocoder = new window.kakao.maps.services.Geocoder();
     geocoder.addressSearch(data.adress, function (result, status) {
-      // 정상적으로 검색이 완료됐으면
+      s;
       if (status === window.kakao.maps.services.Status.OK) {
-        console.log(data);
-        console.log(result[0].x, result[0].y);
-        console.log(imageUrl);
+        axios
+          .post(`${process.env.NEXT_PUBLIC_URL}/write/regist`, {
+            name: data.name,
+            age: data.age,
+            adress: data.adress,
+            x: result[0].y,
+            y: result[0].x,
+            image: imageUrl,
+          })
+          .then((res) => {
+            dispatch(setModal(null));
+          });
       }
     });
   }

@@ -7,4 +7,5 @@ export interface person {
   description?: string;
   date: Date;
   _id: string;
+  image: string;
 }
