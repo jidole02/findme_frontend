@@ -55,6 +55,7 @@ const AddPerson = () => {
             x: result[0].y,
             y: result[0].x,
             image: imageUrl,
+            description: data.description,
           })
           .then((res) => {
             dispatch(setModal(null));
