@@ -18,7 +18,7 @@ export default function PeopleInformation({ person, distance }: props) {
   }
   return (
     <Wrapper onClick={showDetail}>
-      <img src="http://image.kmib.co.kr/online_image/2020/0122/202001220402_11170924119205_1.jpg" />
+      <img src={person.image} />
       <div className="infor">
         <h1>{person.name}</h1>
         <span>{person.adress}</span>

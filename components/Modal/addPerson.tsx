@@ -58,6 +58,7 @@ const AddPerson = () => {
           })
           .then((res) => {
             dispatch(setModal(null));
+            alert("등록되었습니다.");
           });
       }
     });

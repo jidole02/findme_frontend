@@ -2,21 +2,27 @@ import styled from "@emotion/styled";
 import CloseButton from "./closeButton";
 import * as s from "./styles";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux";
 import axiox from "axios";
 import { person } from "./../../interfaces/person";
 import { getDate } from "./../../utils/getDate";
+import { setModal } from "./../../redux/modal";
 
 const PersonDetail = () => {
   const person_id = useSelector((state: RootState) => state.PersonReducer.id);
   const [person, setPerson] = useState<person>();
+  const dispatch = useDispatch();
 
   async function getDetail() {
     const res = await axiox.get(
       process.env.NEXT_PUBLIC_URL + `/missing?id=${person_id}`
     );
     setPerson(res.data);
+  }
+
+  function successFind() {
+    dispatch(setModal("alert"));
   }
 
   useEffect(() => {
@@ -34,7 +40,7 @@ const PersonDetail = () => {
             <span>{getDate(person.date)}</span>
           </div>
           <p>{person.description}</p>
-          <s.ConfirmButton>발견 완료</s.ConfirmButton>
+          <s.ConfirmButton onClick={successFind}>발견 완료</s.ConfirmButton>
           <CloseButton />
         </>
       )}
