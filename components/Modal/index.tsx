@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
-import AddPerson from "./addPerson";
+import AlertPerson from "./alertPerson";
 import PersonDetail from "./PersonDetail";
 
 const Modal = () => {
@@ -14,8 +14,8 @@ const Modal = () => {
         <Wrapper>
           {modal_type === "personDetail" ? (
             <PersonDetail />
-          ) : modal_type === "addPerson" ? (
-            <AddPerson />
+          ) : modal_type === "alert" ? (
+            <AlertPerson />
           ) : (
             ""
           )}

@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import CloseButton from "./closeButton";
 import * as s from "./styles";
 
-const AddPerson = () => {
+const AlertPerson = () => {
   return (
     <Wrapper>
       <h1>
@@ -16,7 +16,7 @@ const AddPerson = () => {
   );
 };
 
-export default AddPerson;
+export default AlertPerson;
 
 const Wrapper = styled(s.Container)`
   & textarea {
