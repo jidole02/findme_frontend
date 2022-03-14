@@ -19,9 +19,6 @@ const AddPerson = () => {
 export default AddPerson;
 
 const Wrapper = styled(s.Container)`
-  & h1 {
-    font-size: 17px;
-  }
   & textarea {
     height: 150px;
   }

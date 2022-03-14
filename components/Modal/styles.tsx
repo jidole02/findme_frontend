@@ -4,6 +4,9 @@ export const Container = styled.div`
   width: 300px;
   display: flex;
   flex-direction: column;
+  & h1 {
+    font-size: 17px;
+  }
   & button {
     width: 100%;
     border-radius: 5px;
@@ -12,7 +15,8 @@ export const Container = styled.div`
     font-weight: bold;
     color: white;
   }
-  & textarea {
+  & textarea,
+  input {
     width: 100%;
     border: 1px solid white;
     border-radius: 5px;
