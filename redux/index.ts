@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
 import PersonReducer from "./person";
+import ModalReducer from "./modal";
 
 const rootReducer = combineReducers({
+  ModalReducer,
   PersonReducer,
 });
 

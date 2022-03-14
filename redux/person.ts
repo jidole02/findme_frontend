@@ -18,7 +18,7 @@ type Action = ReturnType<typeof setId>;
 export default function PersonReducer(
   state: PersonState = initState,
   action: Action
-) {
+): PersonState {
   switch (action.type) {
     case SET_ID:
       return {
