@@ -28,6 +28,7 @@ const PersonDetail = () => {
   useEffect(() => {
     getDetail();
   }, []);
+  console.log(person);
   return (
     <Wrapper>
       {person && (
@@ -38,6 +39,7 @@ const PersonDetail = () => {
             <span>{person.age}세</span>
             <div className="circle" />
             <span>{getDate(person.date)}</span>
+            <p>{person.description}</p>
           </div>
           <p>{person.description}</p>
           <s.ConfirmButton onClick={successFind}>발견 완료</s.ConfirmButton>
@@ -83,5 +85,6 @@ const Wrapper = styled(s.Container)`
     font-weight: bold;
     margin-bottom: 25px;
     margin-top: 20px;
+    color: white;
   }
 `;
