@@ -102,7 +102,7 @@ const Main = () => {
     if (x !== 0) {
       const mapScript = document.createElement("script");
       mapScript.async = true;
-      mapScript.src = `http://dapi.kakao.com/v2/maps/sdk.js?appkey=23ff1647b8abe7a607e42f5bbda3e52e&autoload=false`;
+      mapScript.src = `http://dapi.kakao.com/v2/maps/sdk.js?appkey=23ff1647b8abe7a607e42f5bbda3e52e&libraries=services&autoload=false`;
       document.head.appendChild(mapScript);
 
       const onLoadKakaoMap = () => {
