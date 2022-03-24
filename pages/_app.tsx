@@ -5,6 +5,7 @@ import rootReducer from "./../redux/index";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import Modal from "../components/Modal";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 declare global {
   interface Window {
@@ -14,11 +15,15 @@ declare global {
 
 const store = createStore(rootReducer, composeWithDevTools());
 
+const queryClient = new QueryClient();
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
-      <Modal />
-      <Component {...pageProps} />
+      <QueryClientProvider client={queryClient}>
+        <Modal />
+        <Component {...pageProps} />
+      </QueryClientProvider>
     </Provider>
   );
 }

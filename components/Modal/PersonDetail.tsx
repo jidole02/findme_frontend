@@ -4,30 +4,28 @@ import * as s from "./styles";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux";
-import axiox from "axios";
+import axios, { AxiosResponse } from "axios";
 import { person } from "./../../interfaces/person";
 import { getDate } from "./../../utils/getDate";
 import { setModal } from "./../../redux/modal";
+import { useQuery } from "react-query";
 
 const PersonDetail = () => {
   const person_id = useSelector((state: RootState) => state.PersonReducer.id);
-  const [person, setPerson] = useState<person>();
   const dispatch = useDispatch();
-
-  async function getDetail() {
-    const res = await axiox.get(
+  const { data, isLoading, error } = useQuery("getDetail", async () => {
+    const { data } = await axios.get(
       process.env.NEXT_PUBLIC_URL + `/missing?id=${person_id}`
     );
-    setPerson(res.data);
-  }
+    return data;
+  });
+  const person: person = data;
 
   function successFind() {
     dispatch(setModal("alert"));
   }
-
-  useEffect(() => {
-    getDetail();
-  }, []);
+  if (isLoading) return <h1>로딩중...</h1>;
+  if (error) return <h1>에러가 발생하였습니다.</h1>;
   return (
     <Wrapper>
       {person && (
@@ -41,9 +39,9 @@ const PersonDetail = () => {
           </div>
           <p>{person.description}</p>
           <s.ConfirmButton onClick={successFind}>발견 완료</s.ConfirmButton>
-          <CloseButton />
         </>
       )}
+      <CloseButton />
     </Wrapper>
   );
 };
