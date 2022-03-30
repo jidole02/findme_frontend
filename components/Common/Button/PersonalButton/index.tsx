@@ -1,18 +1,18 @@
 import styled from "@emotion/styled";
 import { CSSProperties, MouseEventHandler, ReactNode } from "react";
+import { DesignSystem } from "./../../../../interfaces/designSystem";
 
-interface Props {
+interface Props extends DesignSystem {
   reverse?: boolean;
   event: MouseEventHandler;
   children: ReactNode;
-  css?: CSSProperties;
 }
 
 export default function PersonalButton({
   reverse,
   event,
   children,
-  css = {},
+  css,
 }: Props) {
   const property: CSSProperties = {
     color: reverse ? "#4d63ef" : "",
