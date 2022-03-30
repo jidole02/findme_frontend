@@ -7,6 +7,10 @@ body {
   overflow-y: hidden;
 }
 
+* {
+  color: white;
+}
+
 :root {
   --main-color: #4d63ef;
   color: white;
@@ -16,6 +20,12 @@ body {
   box-sizing: border-box;
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 500;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 button,
