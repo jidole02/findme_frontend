@@ -7,5 +7,4 @@ export const Container = styled.div`
   position: absolute;
   bottom: 0;
   border-radius: 20px 20px 0 0;
-  transition: 0.5s;
 `;
