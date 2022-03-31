@@ -1,9 +1,11 @@
-import styled from "@emotion/styled";
 import Add from "../../assets/Add";
-import List from "../../assets/List";
 import Location from "./../../assets/Location";
 import { useDispatch } from "react-redux";
 import { setModal } from "./../../redux/modal";
+import { Fragment } from "react";
+import PersonalInput from "../Common/Input";
+import IconButton from "./../Common/Button/IconButton/index";
+import Search from "../../assets/Search";
 
 interface props {
   map: any;
@@ -13,60 +15,64 @@ interface props {
 
 const Header = ({ map, x, y }: props) => {
   const dispatch = useDispatch();
-
   function moveMyLocation() {
     var moveLatLon = new window.kakao.maps.LatLng(x, y);
     map.panTo(moveLatLon);
   }
-
   function addPerson() {
     dispatch(setModal("addPerson"));
   }
   return (
-    <Wrapper>
-      <button className="menu squareMenu">
-        <List />
-      </button>
-      <CircleContainer>
-        <button className="menu" onClick={moveMyLocation}>
-          <Location />
-        </button>
-        <button className="menu" onClick={addPerson}>
+    <Fragment>
+      <div
+        style={{
+          width: "100%",
+          padding: "0 25px",
+          position: "absolute",
+          marginTop: "20px",
+          zIndex: 3,
+        }}
+      >
+        <div
+          style={{
+            position: "relative",
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <PersonalInput
+            pholder="검색어를 입력하세요"
+            event={() => {}}
+            css={{
+              background: "white",
+              border: "none",
+              boxShadow: "0px 0px 10px rgb(0,0,0,0.1)",
+            }}
+          />
+          <Search />
+        </div>
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          right: "25px",
+          top: "85px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          zIndex: 3,
+        }}
+      >
+        <IconButton event={addPerson}>
           <Add />
-        </button>
-      </CircleContainer>
-    </Wrapper>
+        </IconButton>
+        <IconButton event={moveMyLocation}>
+          <Location />
+        </IconButton>
+      </div>
+    </Fragment>
   );
 };
 
 export default Header;
-
-const Wrapper = styled.header`
-  width: 100%;
-  padding: 0px 25px;
-  padding-top: 25px;
-  position: absolute;
-  z-index: 2;
-  display: flex;
-  justify-content: space-between;
-  & .menu {
-    background-color: white;
-    width: 45px;
-    height: 45px;
-    box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  & .squareMenu {
-    border-radius: 5px;
-  }
-`;
-
-const CircleContainer = styled.div`
-  display: flex;
-  gap: 15px;
-  & button {
-    border-radius: 50%;
-  }
-`;
