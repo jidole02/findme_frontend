@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
-import PeopleInformation from "../PeopleInformation";
 import { person } from "./../../interfaces/person";
-import { getDistanceFromLatLonInKm } from "./../../utils/getDistance";
+import PersonList from "./../Common/PersonList/index";
 
 interface props {
   data: person[];
@@ -11,24 +9,9 @@ interface props {
 }
 
 const UnderTab = ({ data, myX, myY }: props) => {
-  const [isOpen, setIsOpen] = useState(false);
   return (
-    <Wrapper style={isOpen ? { height: "400px" } : {}}>
-      <ButtonContainer onClick={() => setIsOpen(!isOpen)}>
-        <button />
-      </ButtonContainer>
-      <h1>
-        주변 실종자 <strong>{data.length}명</strong>
-      </h1>
-      <ListWrapper>
-        {data.map((obj, index) => (
-          <PeopleInformation
-            key={index}
-            person={obj}
-            distance={getDistanceFromLatLonInKm(myX, myY, obj.x, obj.y)}
-          />
-        ))}
-      </ListWrapper>
+    <Wrapper>
+      <PersonList personList={data} myX={myX} myY={myY} />
     </Wrapper>
   );
 };
@@ -37,44 +20,12 @@ export default UnderTab;
 
 const Wrapper = styled.div`
   width: 100%;
+  height: 300px;
   border-radius: 20px 20px 0px 0px;
   background-color: white;
-  height: 80px;
-  position: absolute;
-  z-index: 5;
-  bottom: 0;
-  padding: 0px 30px;
-  box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.1);
-  transition: 0.5s;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 30px;
-  color: black;
-  & h1 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    & strong {
-      color: var(--main-color);
-    }
-  }
-`;
-
-const ListWrapper = styled.div`
   overflow-y: scroll;
-`;
-
-const ButtonContainer = styled.div`
-  padding-top: 10px;
-  padding-bottom: 20px;
-  cursor: pointer;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  & button {
-    width: 70px;
-    height: 5px;
-    background-color: #dedede;
-    border-radius: 24px;
-  }
+  padding: 25px;
+  position: absolute;
+  bottom: 0;
+  z-index: 3;
 `;

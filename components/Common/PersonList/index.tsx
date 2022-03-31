@@ -3,13 +3,21 @@ import { DesignSystem } from "../../../interfaces/designSystem";
 import PersonalImage from "../Image";
 import PersonalText from "../Text";
 import { person } from "./../../../interfaces/person";
+import { getDistanceFromLatLonInKm } from "./../../../utils/getDistance";
 
 interface Props extends DesignSystem {
   type?: "personal" | "search";
   personList?: person[];
+  myX: number;
+  myY: number;
 }
 
-export default function PersonList({ type = "personal", personList }: Props) {
+export default function PersonList({
+  type = "personal",
+  personList,
+  myX,
+  myY,
+}: Props) {
   if (type === "personal")
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
@@ -34,7 +42,8 @@ export default function PersonList({ type = "personal", personList }: Props) {
                 color="#3184FF"
                 size="small"
               >
-                6.2km 거리에 있습니다.
+                {getDistanceFromLatLonInKm(myX, myY, _.x, _.y).toFixed(2)}km
+                거리에 있습니다.
               </PersonalText>
             </div>
           </PersonalListWrapper>
