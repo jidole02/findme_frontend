@@ -12,7 +12,7 @@ interface Props extends DesignSystem {
 export default function PersonList({ type = "personal", personList }: Props) {
   if (type === "personal")
     return (
-      <>
+      <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
         {personList.map((_, index) => (
           <PersonalListWrapper key={index}>
             <button>
@@ -39,9 +39,26 @@ export default function PersonList({ type = "personal", personList }: Props) {
             </div>
           </PersonalListWrapper>
         ))}
-      </>
+      </div>
     );
-  else return <></>;
+  else
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+        {personList.map((_, index) => (
+          <SearchListWrapper key={index}>
+            <div>
+              <PersonalText>{_.name}</PersonalText>
+              <PersonalText color="#AAAAAA" size="small" weight="reguler">
+                {_.adress}
+              </PersonalText>
+            </div>
+            <PersonalText color="#3184FF" size="small">
+              1.3km
+            </PersonalText>
+          </SearchListWrapper>
+        ))}
+      </div>
+    );
 }
 
 const PersonalListWrapper = styled.div`
@@ -67,5 +84,17 @@ const PersonalListWrapper = styled.div`
       font-size: 20px;
       font-weight: 400;
     }
+  }
+`;
+
+const SearchListWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  & div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
   }
 `;
