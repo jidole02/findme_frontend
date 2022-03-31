@@ -18,6 +18,7 @@ export default function PersonalButton({
     color: reverse ? "#4d63ef" : "",
     backgroundColor: reverse ? "white" : "#4d63ef",
     border: reverse ? "1px solid #4d63ef" : "",
+    marginTop: reverse ? "10px" : "0",
   };
   return (
     <Button
