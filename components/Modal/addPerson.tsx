@@ -6,6 +6,9 @@ import { FormEvent, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setModal } from "./../../redux/modal";
+import PersonalButton from "./../Common/Button/PersonalButton/index";
+import PersonalText from "./../Common/Text/index";
+import PersonalInput from "../Common/Input";
 
 const AddPerson = () => {
   const [fileName, setFileName] = useState("");
@@ -45,7 +48,6 @@ const AddPerson = () => {
   function subData() {
     const geocoder = new window.kakao.maps.services.Geocoder();
     geocoder.addressSearch(data.adress, function (result, status) {
-      s;
       if (status === window.kakao.maps.services.Status.OK) {
         axios
           .post(`${process.env.NEXT_PUBLIC_URL}/write/regist`, {
@@ -66,33 +68,32 @@ const AddPerson = () => {
   }
   return (
     <Wrapper>
-      <h1>
+      <PersonalText weight="bold">
         허위 작성시 <br />
         법적 재재를 받을 수 있습니다.
-      </h1>
-      <input
-        onChange={handleInput}
-        type="text"
-        placeholder="이름을 적어주세요"
+      </PersonalText>
+      <PersonalInput
+        event={handleInput}
         name="name"
+        pholder="이름을 적어주세요"
+        css={{ marginTop: "20px" }}
       />
-      <input
-        onChange={handleInput}
-        type="text"
-        placeholder="실종 장소를 적어주세요"
+      <PersonalInput
+        event={handleInput}
         name="adress"
+        pholder="실종 장소를 적어주세요"
       />
-      <input
-        onChange={handleInput}
-        type="number"
-        min="0"
-        placeholder="나이를 적어주세요"
+      <PersonalInput
+        event={handleInput}
         name="age"
+        type="number"
+        pholder="나이를 적어주세요"
       />
-      <textarea
-        onChange={handleInput}
-        placeholder="설명을 적어주세요"
+      <PersonalInput
+        event={handleInput}
         name="description"
+        pholder="설명을 적어주세요"
+        isTextArea={true}
       />
       <input type="file" id="profile" onChange={getFile} />
       <label htmlFor="profile">
@@ -101,7 +102,7 @@ const AddPerson = () => {
           <span>{fileName ? fileName : "파일이 없습니다."}</span>
         </div>
       </label>
-      <s.ConfirmButton onClick={subData}>작성 완료</s.ConfirmButton>
+      <PersonalButton event={subData}>작성 완료</PersonalButton>
       <CloseButton />
     </Wrapper>
   );
@@ -133,15 +134,17 @@ const Wrapper = styled(s.Container)`
     margin-top: 10px;
     margin-bottom: 20px;
     & div {
-      font-size: 14px;
+      font-size: 12px;
+      font-weight: 400;
       padding: 5px 10px;
       border-radius: 3px;
-      color: white;
-      background: #4d63ef;
+      color: var(--main-color);
+      background: none;
+      border: 1px solid var(--main-color);
     }
     & span {
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 12px;
+      font-weight: 400;
       color: #a5a5a5;
       margin-left: 10px;
       overflow: hidden;

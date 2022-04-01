@@ -19,9 +19,9 @@ export default function Search() {
           transform="translate(-4.5 -4.5)"
           fill="none"
           stroke="#aaa"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
         />
         <path
           id="패스_10"
@@ -30,9 +30,9 @@ export default function Search() {
           transform="translate(-12.315 -12.315)"
           fill="none"
           stroke="#aaa"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
         />
       </g>
     </svg>

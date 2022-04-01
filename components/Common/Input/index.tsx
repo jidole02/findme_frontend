@@ -1,11 +1,13 @@
 import styled from "@emotion/styled";
-import { ChangeEventHandler } from "react";
+import { HTMLInputTypeAttribute } from "react";
 import { DesignSystem } from "./../../../interfaces/designSystem";
 
 interface Props extends DesignSystem {
-  event: ChangeEventHandler;
+  event(event: any): void;
   pholder: string;
   isTextArea?: boolean;
+  name?: string;
+  type?: HTMLInputTypeAttribute;
 }
 
 export default function PersonalInput({
@@ -13,10 +15,28 @@ export default function PersonalInput({
   pholder,
   isTextArea = false,
   css,
+  name,
+  type,
 }: Props) {
   if (isTextArea)
-    return <TextArea placeholder={pholder} onChange={event} style={css} />;
-  else return <Input placeholder={pholder} onChange={event} style={css} />;
+    return (
+      <TextArea
+        placeholder={pholder}
+        name={name}
+        onChange={event}
+        style={css}
+      />
+    );
+  else
+    return (
+      <Input
+        placeholder={pholder}
+        name={name}
+        onChange={event}
+        style={css}
+        type={type}
+      />
+    );
 }
 
 const Input = styled.input`
