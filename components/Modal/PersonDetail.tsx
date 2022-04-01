@@ -59,7 +59,7 @@ const PersonDetail = () => {
               <PersonalText>{`${person.age}세`}</PersonalText>
             </div>
           </DetailInforWrapper>
-          <PersonalButton event={() => {}} css={{ marginTop: "25px" }}>
+          <PersonalButton event={successFind} css={{ marginTop: "25px" }}>
             발견 완료
           </PersonalButton>
           <CloseButton />

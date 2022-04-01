@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux";
 import { setModal } from "./../../redux/modal";
 import { ChangeEvent, useState } from "react";
+import PersonalButton from "../Common/Button/PersonalButton";
+import PersonalText from "../Common/Text";
+import PersonalInput from "../Common/Input";
 
 const AlertPerson = () => {
   const person_id = useSelector((state: RootState) => state.PersonReducer.id);
@@ -28,15 +31,19 @@ const AlertPerson = () => {
   }
   return (
     <Wrapper>
-      <h1>
-        본 이메일은 경찰로 전달됩니다 <br />
-        작성 후 경찰로 신고해주세요
-      </h1>
-      <textarea
-        placeholder="찾은 장소, 실종자 상태를 적어주세요"
-        onChange={handleInput}
+      <PersonalText weight="bold">
+        본 메일은 경찰로 전달됩니다. <br />
+        작성 후 경찰에 신고해주세요!
+      </PersonalText>
+      <PersonalInput
+        isTextArea={true}
+        pholder="발견 당시 상태를 적어주세요."
+        css={{ marginTop: "20px" }}
+        event={handleInput}
       />
-      <s.ConfirmButton onClick={alertPerson}>작성 완료</s.ConfirmButton>
+      <PersonalButton event={alertPerson} css={{ marginTop: "20px" }}>
+        작성 완료
+      </PersonalButton>
       <CloseButton />
     </Wrapper>
   );
@@ -44,8 +51,4 @@ const AlertPerson = () => {
 
 export default AlertPerson;
 
-const Wrapper = styled(s.Container)`
-  & textarea {
-    height: 150px;
-  }
-`;
+const Wrapper = styled(s.Container)``;
