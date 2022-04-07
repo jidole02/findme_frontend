@@ -1,26 +1,23 @@
 import { useEffect, useState } from "react";
-import Header from "../Header";
-import UnderTab from "../UnderTab";
-import axios from "axios";
 import { person } from "../../interfaces/person";
 import { useDispatch } from "react-redux";
 import { setId } from "./../../redux/person";
 import { setModal } from "./../../redux/modal";
 import { setLocation } from "./../../redux/location";
+import { MainViewProps } from "./type";
+import axios from "axios";
+import MainView from "./view";
 
-interface location {
-  x: number;
-  y: number;
-}
+const KAKAO_MAP_SCRIPT = `http://dapi.kakao.com/v2/maps/sdk.js?appkey=23ff1647b8abe7a607e42f5bbda3e52e&libraries=services&autoload=false`;
 
 const Main = () => {
-  const [coordination, setCoordination] = useState<location>({ x: 0, y: 0 });
-  const [map, setMap] = useState();
+  const [coordination, setCoordination] = useState({ x: 0, y: 0 });
   const [nearData, setNearData] = useState<person[]>([]);
+  const [map, setMap] = useState();
   const { x, y } = coordination;
   const dispatch = useDispatch();
 
-  async function getAllMissingPerson() {
+  const getAllMissingPerson = async () => {
     const res = await axios.post(
       `${process.env.NEXT_PUBLIC_URL}/missing/near`,
       {
@@ -29,18 +26,18 @@ const Main = () => {
       }
     );
     setNearData(res.data);
-  }
+  };
 
-  function getMyLocation() {
-    navigator.geolocation.watchPosition(function (p) {
+  const getMyLocation = () => {
+    navigator.geolocation.watchPosition((p) => {
       setCoordination({
         x: p.coords.latitude,
         y: p.coords.longitude,
       });
     });
-  }
+  };
 
-  function showDetail() {
+  const showDetail = () => {
     window.addEventListener("click", (event) => {
       const target: any = event.target;
       if (target.id === "marker") {
@@ -48,45 +45,62 @@ const Main = () => {
         dispatch(setModal("personDetail"));
       }
     });
-  }
+  };
 
-  function draw() {
+  const showMissingPerson = (map) => {
+    if (nearData.length !== 0) {
+      for (let i = 0; i < nearData.length; i++) {
+        const content = `<img src="${nearData[i].image}" id="marker" class="${nearData[i]._id}" />`;
+        const position = new window.kakao.maps.LatLng(
+          nearData[i].x,
+          nearData[i].y
+        );
+        const customOverlay = new window.kakao.maps.CustomOverlay({
+          position: position,
+          content: content,
+        });
+        customOverlay.setMap(map);
+      }
+    }
+  };
+
+  const showMyLocation = (map) => {
+    const content = `<img src="maker.png" style="width:150px; height:150px; border-radius:50%;" />`;
+    const position = new window.kakao.maps.LatLng(x, y);
+    const customOverlay = new window.kakao.maps.CustomOverlay({
+      position: position,
+      content: content,
+    });
+    customOverlay.setMap(map);
+  };
+
+  const drawKakaoMap = () => {
     window.kakao.maps.load(() => {
-      // 지도 생성
       const mapContainer = document.getElementById("map");
       const mapOption = {
         center: new window.kakao.maps.LatLng(x, y),
         level: 8,
       };
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
+      showMissingPerson(map);
+      showMyLocation(map);
       setMap(map);
-      // 가까운 실종자 띄우기
-      if (nearData.length !== 0) {
-        for (let i = 0; i < nearData.length; i++) {
-          const content = `<img src="${nearData[i].image}" id="marker" class="${nearData[i]._id}" />`;
-          const position = new window.kakao.maps.LatLng(
-            nearData[i].x,
-            nearData[i].y
-          );
-          const customOverlay = new window.kakao.maps.CustomOverlay({
-            position: position,
-            content: content,
-          });
-
-          // 커스텀 오버레이를 지도에 표시합니다
-          customOverlay.setMap(map);
-        }
-      }
-      // 현위치 마커 이미지 변경
-      const content = `<img src="maker.png" style="width:150px; height:150px; border-radius:50%;" />`;
-      const position = new window.kakao.maps.LatLng(x, y);
-      const customOverlay = new window.kakao.maps.CustomOverlay({
-        position: position,
-        content: content,
-      });
-      customOverlay.setMap(map);
     });
-  }
+  };
+
+  const initKakaoMap = () => {
+    const mapScript = document.createElement("script");
+    mapScript.async = true;
+    mapScript.src = KAKAO_MAP_SCRIPT;
+    document.head.appendChild(mapScript);
+
+    if (x !== 0) {
+      const onLoadKakaoMap = () => {
+        drawKakaoMap();
+      };
+      mapScript.addEventListener("load", onLoadKakaoMap);
+    }
+  };
 
   useEffect(() => {
     getMyLocation();
@@ -98,27 +112,14 @@ const Main = () => {
     dispatch(setLocation(x, y));
   }, [x]);
 
-  useEffect(() => {
-    if (x !== 0) {
-      const mapScript = document.createElement("script");
-      mapScript.async = true;
-      mapScript.src = `http://dapi.kakao.com/v2/maps/sdk.js?appkey=23ff1647b8abe7a607e42f5bbda3e52e&libraries=services&autoload=false`;
-      document.head.appendChild(mapScript);
+  useEffect(initKakaoMap, [x, nearData]);
 
-      const onLoadKakaoMap = () => {
-        draw();
-      };
-      mapScript.addEventListener("load", onLoadKakaoMap);
-    }
-  }, [coordination.x, nearData]);
+  const props: MainViewProps = {
+    map: map,
+    data: nearData,
+  };
 
-  return (
-    <>
-      <Header map={map} />
-      <UnderTab data={nearData} />
-      <div id="map" style={{ height: "100vh", width: "100vw" }} />
-    </>
-  );
+  return <MainView {...props} />;
 };
 
 export default Main;
