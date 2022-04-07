@@ -3,7 +3,7 @@ import { keyframes } from "@emotion/react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
 import AddPerson from "./AddPerson";
-import AlertPerson from "./alertPerson";
+import AlertPerson from "./AlertPerson";
 import PersonDetail from "./PersonDetail";
 
 const Modal = () => {
