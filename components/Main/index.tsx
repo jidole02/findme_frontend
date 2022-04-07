@@ -6,6 +6,7 @@ import { person } from "../../interfaces/person";
 import { useDispatch } from "react-redux";
 import { setId } from "./../../redux/person";
 import { setModal } from "./../../redux/modal";
+import { setLocation } from "./../../redux/location";
 
 interface location {
   x: number;
@@ -94,6 +95,7 @@ const Main = () => {
 
   useEffect(() => {
     getAllMissingPerson();
+    dispatch(setLocation(x, y));
   }, [x]);
 
   useEffect(() => {
@@ -112,8 +114,8 @@ const Main = () => {
 
   return (
     <>
-      <Header map={map} x={x} y={y} />
-      <UnderTab data={nearData} myX={x} myY={y} />
+      <Header map={map} />
+      <UnderTab data={nearData} />
       <div id="map" style={{ height: "100vh", width: "100vw" }} />
     </>
   );

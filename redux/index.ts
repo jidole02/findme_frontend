@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
 import PersonReducer from "./person";
 import ModalReducer from "./modal";
+import LocationReducer from "./location";
 
 const rootReducer = combineReducers({
   ModalReducer,
   PersonReducer,
+  LocationReducer,
 });
 
 export default rootReducer;

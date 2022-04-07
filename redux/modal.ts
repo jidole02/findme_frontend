@@ -15,11 +15,11 @@ const initState: ModalState = {
   modalType: null,
 };
 
-type Action = ReturnType<typeof setModal>;
+type ActionType = ReturnType<typeof setModal>;
 
 export default function ModalReducer(
   state: ModalState = initState,
-  action: Action
+  action: ActionType
 ): ModalState {
   switch (action.type) {
     case SET_MODAL:

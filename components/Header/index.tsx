@@ -1,20 +1,20 @@
 import Add from "../../assets/Add";
 import Location from "./../../assets/Location";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setModal } from "./../../redux/modal";
 import { Fragment } from "react";
 import PersonalInput from "../Common/Input";
 import IconButton from "./../Common/Button/IconButton/index";
 import Search from "../../assets/Search";
+import { RootState } from "../../redux";
 
 interface props {
   map: any;
-  x: number;
-  y: number;
 }
 
-const Header = ({ map, x, y }: props) => {
+const Header = ({ map }: props) => {
   const dispatch = useDispatch();
+  const { x, y } = useSelector((state: RootState) => state.LocationReducer);
   function moveMyLocation() {
     var moveLatLon = new window.kakao.maps.LatLng(x, y);
     map.panTo(moveLatLon);
