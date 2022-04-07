@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import PersonalButton from "../../Common/Button/PersonalButton/index";
 import PersonalText from "../../Common/Text/index";
 import PersonalInput from "../../Common/Input";
-import CloseButton from "../closeButton";
+import CloseButton from "../common/closeButton";
 
 export default function AddPersonView({
   handleInput,

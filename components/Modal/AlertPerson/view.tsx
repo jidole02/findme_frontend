@@ -1,7 +1,7 @@
 import { AlertPersonViewProps } from "./type";
 import * as s from "../styles";
 import styled from "@emotion/styled";
-import CloseButton from "../closeButton";
+import CloseButton from "../common/closeButton";
 import PersonalButton from "../../Common/Button/PersonalButton";
 import PersonalText from "../../Common/Text";
 import PersonalInput from "../../Common/Input";

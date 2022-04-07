@@ -1,7 +1,6 @@
-import * as s from "./styles";
 import { useDispatch } from "react-redux";
-import { setModal } from "./../../redux/modal";
-import PersonalButton from "../Common/Button/PersonalButton";
+import { setModal } from "../../../redux/modal";
+import PersonalButton from "../../Common/Button/PersonalButton";
 
 const CloseButton = () => {
   const dispatch = useDispatch();
