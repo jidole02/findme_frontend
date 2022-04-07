@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
-import AddPerson from "./addPerson";
+import AddPerson from "./AddPerson";
 import AlertPerson from "./alertPerson";
 import PersonDetail from "./PersonDetail";
 
