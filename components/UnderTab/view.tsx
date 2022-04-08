@@ -27,7 +27,7 @@ export default function UnderTabView({
       </ButtonWrapper>
       <RelativeWrapper>
         <ListWrapper>
-          <PersonList personList={data} />
+          <PersonList personList={data} maxDistance={selectDistance} />
         </ListWrapper>
       </RelativeWrapper>
     </Wrapper>

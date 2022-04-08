@@ -10,40 +10,53 @@ import PersonalText from "../Text";
 interface Props extends DesignSystem {
   type?: "personal" | "search";
   personList?: person[];
+  maxDistance?: number;
 }
 
-export default function PersonList({ type = "personal", personList }: Props) {
+export default function PersonList({
+  type = "personal",
+  personList,
+  maxDistance,
+}: Props) {
   const { x, y } = useSelector((state: RootState) => state.LocationReducer);
   if (type === "personal")
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-        {personList.map((_, index) => (
-          <PersonalListWrapper key={index}>
-            <button>
-              <strong>+</strong>
-            </button>
-            <PersonalImage size="small" src={_.image} />
-            <div>
-              <PersonalText>{_.name}</PersonalText>
-              <PersonalText
-                css={{ marginTop: "2px" }}
-                color="#AAAAAA"
-                size="small"
-                weight="reguler"
-              >
-                {_.adress}
-              </PersonalText>
-              <PersonalText
-                css={{ marginTop: "10px" }}
-                color="#3184FF"
-                size="small"
-              >
-                {getDistanceFromLatLonInKm(x, y, _.x, _.y).toFixed(2)}km 거리에
-                있습니다.
-              </PersonalText>
-            </div>
-          </PersonalListWrapper>
-        ))}
+        {personList
+          .filter(
+            (_) => getDistanceFromLatLonInKm(x, y, _.x, _.y) < maxDistance
+          )
+          .map((_, index) => {
+            const distance = getDistanceFromLatLonInKm(x, y, _.x, _.y).toFixed(
+              2
+            );
+            return (
+              <PersonalListWrapper key={index}>
+                <button>
+                  <strong>+</strong>
+                </button>
+                <PersonalImage size="small" src={_.image} />
+                <div>
+                  <PersonalText>{_.name}</PersonalText>
+                  <PersonalText
+                    css={{ marginTop: "2px" }}
+                    color="#AAAAAA"
+                    size="small"
+                    weight="reguler"
+                  >
+                    {_.adress}
+                  </PersonalText>
+                  <PersonalText
+                    css={{ marginTop: "10px" }}
+                    color="#3184FF"
+                    size="small"
+                  >
+                    {distance}km 거리에 있습니다.
+                  </PersonalText>
+                </div>
+              </PersonalListWrapper>
+            );
+          })}
       </div>
     );
   else
