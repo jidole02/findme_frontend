@@ -3,8 +3,8 @@ import { RootState } from "../../../redux";
 import { setModal } from "../../../redux/modal";
 import { ChangeEvent, useState } from "react";
 import { AlertPersonViewProps } from "./type";
-import axios from "axios";
 import AlertPersonView from "./view";
+import { alertMissingPerson } from "../../../api/person";
 
 export default function AlertPerson() {
   const person_id = useSelector((state: RootState) => state.PersonReducer.id);
@@ -15,15 +15,10 @@ export default function AlertPerson() {
     setDescription(event.target.value);
   }
 
-  function alertPerson() {
-    axios
-      .delete(
-        `${process.env.NEXT_PUBLIC_URL}/write/alert?id=${person_id}&description=${description}`
-      )
-      .then((res) => {
-        alert("신고해주셔서 감사합니다");
-        dispatch(setModal(null));
-      });
+  async function alertPerson() {
+    await alertMissingPerson({ id: person_id, description: description });
+    alert("신고해주셔서 감사합니다");
+    dispatch(setModal(null));
   }
 
   const props: AlertPersonViewProps = {
