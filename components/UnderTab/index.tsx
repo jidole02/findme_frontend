@@ -1,77 +1,23 @@
-import styled from "@emotion/styled";
 import { person } from "./../../interfaces/person";
-import PersonList from "./../Common/PersonList/index";
 import { DistanceArr } from "./distanceArr";
+import { UnderTabViewProps } from "./type";
 import { useState } from "react";
+import UnderTabView from "./view";
 
-interface props {
+interface Props {
   data: person[];
 }
 
-const UnderTab = ({ data }: props) => {
+const UnderTab = ({ data }: Props) => {
   const [selectDistance, setSelectDistance] = useState(DistanceArr[0].distance);
-  return (
-    <Wrapper>
-      <ButtonWrapper>
-        {DistanceArr.map((_, index) => (
-          <button
-            key={index}
-            style={
-              selectDistance === _.distance
-                ? { color: "white", background: "#3184FF" }
-                : {}
-            }
-            onClick={() => setSelectDistance(_.distance)}
-          >
-            {index !== 0 ? `반경 ${_.distanceToString}` : _.distanceToString}
-          </button>
-        ))}
-      </ButtonWrapper>
-      <div style={{ position: "relative", width: "100%", height: "100%" }}>
-        <ListWrapper>
-          <PersonList personList={data} />
-        </ListWrapper>
-      </div>
-    </Wrapper>
-  );
+
+  const props: UnderTabViewProps = {
+    selectDistance,
+    setSelectDistance,
+    data,
+  };
+
+  return <UnderTabView {...props} />;
 };
 
 export default UnderTab;
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: 300px;
-  border-radius: 20px 20px 0px 0px;
-  background-color: white;
-  padding: 25px;
-  position: absolute;
-  bottom: 0;
-  z-index: 3;
-`;
-
-const ListWrapper = styled.div`
-  height: 230px;
-  margin-top: 15px;
-  overflow-y: scroll;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding-bottom: 50px;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  overflow-x: scroll;
-  gap: 10px;
-  & button {
-    border: 1px solid var(--main-color);
-    color: var(--main-color);
-    padding: 7px 15px;
-    border-radius: 24px;
-    font-size: 12px;
-    white-space: nowrap;
-  }
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
