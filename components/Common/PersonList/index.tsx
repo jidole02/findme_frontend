@@ -1,8 +1,10 @@
 import { DesignSystem } from "../../../interfaces/designSystem";
 import { person } from "./../../../interfaces/person";
 import { getDistanceFromLatLonInKm } from "./../../../utils/getDistance";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux";
+import { setId } from "./../../../redux/person";
+import { setModal } from "./../../../redux/modal";
 import styled from "@emotion/styled";
 import PersonalImage from "../Image";
 import PersonalText from "../Text";
@@ -19,6 +21,7 @@ export default function PersonList({
   maxDistance,
 }: Props) {
   const { x, y } = useSelector((state: RootState) => state.LocationReducer);
+  const dispatch = useDispatch();
   if (type === "personal")
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
@@ -32,7 +35,11 @@ export default function PersonList({
             );
             return (
               <PersonalListWrapper key={index}>
-                <button>
+                <button
+                  onClick={() => {
+                    dispatch(setId(_._id)), dispatch(setModal("personDetail"));
+                  }}
+                >
                   <strong>+</strong>
                 </button>
                 <PersonalImage size="small" src={_.image} />
