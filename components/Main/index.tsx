@@ -5,8 +5,8 @@ import { setId } from "./../../redux/person";
 import { setModal } from "./../../redux/modal";
 import { setLocation } from "./../../redux/location";
 import { MainViewProps } from "./type";
-import axios from "axios";
 import MainView from "./view";
+import { getNearMissingPerson } from "../../api/person";
 
 const KAKAO_MAP_SCRIPT = `http://dapi.kakao.com/v2/maps/sdk.js?appkey=23ff1647b8abe7a607e42f5bbda3e52e&libraries=services&autoload=false`;
 
@@ -18,14 +18,8 @@ const Main = () => {
   const dispatch = useDispatch();
 
   const getAllMissingPerson = async () => {
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_URL}/missing/near`,
-      {
-        x,
-        y,
-      }
-    );
-    setNearData(res.data);
+    const data = (await getNearMissingPerson({ x: x, y: y })).data;
+    setNearData(data);
   };
 
   const getMyLocation = () => {
