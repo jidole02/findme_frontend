@@ -3,8 +3,6 @@ import { person } from "./../../interfaces/person";
 import PersonList from "./../Common/PersonList/index";
 import { DistanceArr } from "./distanceArr";
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux";
 
 interface props {
   data: person[];
@@ -12,7 +10,6 @@ interface props {
 
 const UnderTab = ({ data }: props) => {
   const [selectDistance, setSelectDistance] = useState(DistanceArr[0].distance);
-  const { x, y } = useSelector((state: RootState) => state.LocationReducer);
   return (
     <Wrapper>
       <ButtonWrapper>
@@ -32,7 +29,7 @@ const UnderTab = ({ data }: props) => {
       </ButtonWrapper>
       <div style={{ position: "relative", width: "100%", height: "100%" }}>
         <ListWrapper>
-          <PersonList personList={data} myX={x} myY={y} />
+          <PersonList personList={data} />
         </ListWrapper>
       </div>
     </Wrapper>

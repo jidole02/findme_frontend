@@ -1,23 +1,19 @@
-import styled from "@emotion/styled";
 import { DesignSystem } from "../../../interfaces/designSystem";
-import PersonalImage from "../Image";
-import PersonalText from "../Text";
 import { person } from "./../../../interfaces/person";
 import { getDistanceFromLatLonInKm } from "./../../../utils/getDistance";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux";
+import styled from "@emotion/styled";
+import PersonalImage from "../Image";
+import PersonalText from "../Text";
 
 interface Props extends DesignSystem {
   type?: "personal" | "search";
   personList?: person[];
-  myX: number;
-  myY: number;
 }
 
-export default function PersonList({
-  type = "personal",
-  personList,
-  myX,
-  myY,
-}: Props) {
+export default function PersonList({ type = "personal", personList }: Props) {
+  const { x, y } = useSelector((state: RootState) => state.LocationReducer);
   if (type === "personal")
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
@@ -42,8 +38,8 @@ export default function PersonList({
                 color="#3184FF"
                 size="small"
               >
-                {getDistanceFromLatLonInKm(myX, myY, _.x, _.y).toFixed(2)}km
-                거리에 있습니다.
+                {getDistanceFromLatLonInKm(x, y, _.x, _.y).toFixed(2)}km 거리에
+                있습니다.
               </PersonalText>
             </div>
           </PersonalListWrapper>
