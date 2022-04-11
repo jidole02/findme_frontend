@@ -1,8 +1,9 @@
 import axios from "axios";
-import { person } from "./../interfaces/person";
+
+const url = process.env.NEXT_PUBLIC_URL;
 
 export const getNearMissingPerson = ({ x, y }: { x: number; y: number }) => {
-  const res = axios.post(`${process.env.NEXT_PUBLIC_URL}/missing/near`, {
+  const res = axios.post(`${url}/missing/near`, {
     x,
     y,
   });
@@ -10,7 +11,7 @@ export const getNearMissingPerson = ({ x, y }: { x: number; y: number }) => {
 };
 
 export const getImageUrl = ({ fd }: { fd: FormData }) => {
-  const res = axios.post(`${process.env.NEXT_PUBLIC_URL}/image/upload`, fd, {
+  const res = axios.post(`${url}/image/upload`, fd, {
     headers: { "Content-Type": "multipart/form-data" },
   });
   return res;
@@ -25,7 +26,7 @@ export const addMissingPerson = ({
   image,
   description,
 }) => {
-  axios.post(`${process.env.NEXT_PUBLIC_URL}/write/regist`, {
+  axios.post(`${url}/write/regist`, {
     name,
     age,
     adress,
@@ -37,12 +38,15 @@ export const addMissingPerson = ({
 };
 
 export const alertMissingPerson = ({ id, description }) => {
-  axios.delete(
-    `${process.env.NEXT_PUBLIC_URL}/write/alert?id=${id}&description=${description}`
-  );
+  axios.delete(`${url}/write/alert?id=${id}&description=${description}`);
 };
 
 export const getPersonDetail = (id) => {
-  const res = axios.get(process.env.NEXT_PUBLIC_URL + `/missing?id=${id}`);
+  const res = axios.get(url + `/missing?id=${id}`);
+  return res;
+};
+
+export const getPersonSearchResult = (keyword) => {
+  const res = axios.get(url + `/missing/search?keyword=${keyword}`);
   return res;
 };
