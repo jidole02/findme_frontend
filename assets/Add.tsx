@@ -2,16 +2,46 @@ export default function Add() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="20.829"
-      height="16.663"
-      viewBox="0 0 20.829 16.663"
+      width="22.432"
+      height="18.154"
+      viewBox="0 0 34.432 30.154"
     >
-      <path
-        id="Icon_awesome-user-plus"
-        data-name="Icon awesome-user-plus"
-        d="M20.308,6.769H18.225V4.686a.522.522,0,0,0-.521-.521H16.663a.522.522,0,0,0-.521.521V6.769H14.059a.522.522,0,0,0-.521.521V8.332a.522.522,0,0,0,.521.521h2.083v2.083a.522.522,0,0,0,.521.521H17.7a.522.522,0,0,0,.521-.521V8.852h2.083a.522.522,0,0,0,.521-.521V7.29A.522.522,0,0,0,20.308,6.769ZM7.29,8.332A4.166,4.166,0,1,0,3.124,4.166,4.165,4.165,0,0,0,7.29,8.332Zm2.916,1.041H9.663a5.665,5.665,0,0,1-4.745,0H4.374A4.375,4.375,0,0,0,0,13.747V15.1a1.563,1.563,0,0,0,1.562,1.562H13.018A1.563,1.563,0,0,0,14.58,15.1V13.747A4.375,4.375,0,0,0,10.206,9.373Z"
-        fill="#5D5D5D"
-      />
+      <g
+        id="Icon_feather-alert-triangle"
+        data-name="Icon feather-alert-triangle"
+        transform="translate(-0.785 -2.846)"
+      >
+        <path
+          id="패스_11"
+          data-name="패스 11"
+          d="M15.435,5.79,2.73,27A3,3,0,0,0,5.3,31.5H30.7A3,3,0,0,0,33.27,27L20.565,5.79a3,3,0,0,0-5.13,0Z"
+          fill="none"
+          stroke="#FF4141"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="3"
+        />
+        <path
+          id="패스_12"
+          data-name="패스 12"
+          d="M18,13.5v6"
+          fill="none"
+          stroke="#FF4141"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="3"
+        />
+        <path
+          id="패스_13"
+          data-name="패스 13"
+          d="M18,25.5h0"
+          fill="none"
+          stroke="#FF4141"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="3"
+        />
+      </g>
     </svg>
   );
 }
